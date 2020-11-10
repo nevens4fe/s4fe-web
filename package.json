@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0",
-    "heroku-postbuild": "npm install && npm install express && npm install && npm install -g @quasar/cli && quasar build"
+    "heroku-postbuild": "npm install && npm install --only=dev && npm install express && npm install serve-static && npm install connect-history-api-fallback && npm install && npm install -g @quasar/cli && quasar build"
   },
   "dependencies": {
     "@quasar/extras": "^1.8.1",
