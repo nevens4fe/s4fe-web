@@ -73,8 +73,8 @@
         <q-toolbar-title class="mobile-hide" >
 
         </q-toolbar-title>
-        <q-btn color="" class="no-shadow" icon="home" :label="$q.platform.is.mobile ? '' : 'Home'"  @click="$router.push('/')" />
-        <q-btn color="" class="no-shadow" icon="search" :label="$q.platform.is.mobile ? '' : 'S4FE Search'" @click="$router.push('/search')" />
+        <q-btn color="" class="no-shadow" icon="home" :label="$q.platform.is.mobile ? '' : 'Home'"  @click="$router.push('/home')" />
+        <q-btn color="" class="no-shadow" icon="search" :label="$q.platform.is.mobile ? '' : 'S4FE Search'" @click="$router.push('/')" />
         <q-btn color="" class="no-shadow" icon="transform" :label="$q.platform.is.mobile ? '' : 'Transactions'"  @click="$router.push('/transactions')" />
         <q-btn color="" class="no-shadow" icon="message" :label="$q.platform.is.mobile ? '' : 'Chat'"  @click="$router.push('/chat')" />
         <q-btn-dropdown color="" class="no-shadow " icon="person" >

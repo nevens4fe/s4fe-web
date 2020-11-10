@@ -10,7 +10,7 @@
           >
           <q-toolbar-title class="desktop-only"></q-toolbar-title>
 
-          <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="search" :label="$q.platform.is.mobile ? '' : 'S4FE Search'" @click="$router.push('/search')"/>
+          <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="search" :label="$q.platform.is.mobile ? '' : 'S4FE Search'" @click="$router.push('/')"/>
           <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="transform" :label="$q.platform.is.mobile ? '' : 'Transactions'" @click="$router.push('/transactions')"/>
           <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="shopping_cart" :label="$q.platform.is.mobile ? '' : 'S4FE Shop'" @click="openUrl"/>
           <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="airplay" :label="$q.platform.is.mobile ? '' : 'Access App'" @click="goAccess"/>
@@ -32,7 +32,7 @@
         <q-scroll-area class="fit">
           <div class="q-pa-sm">
             <h6 class="text-center">S4FE Menu</h6>
-            <q-btn flat color="white"  icon="search" label="S4FE Search" @click="$router.push('/search')"/>
+            <q-btn flat color="white"  icon="search" label="S4FE Search" @click="$router.push('/')"/>
             <q-btn flat color="white" icon="airplay" label="Access App" @click="goAccess"/>
             <q-btn flat color="white" icon="transform" label="Transactions" @click="$router.push('/transactions')"/>
             <q-btn flat color="white" label="About S4fe" style="margin-top:20px" @click="$router.push('/about')"/>
@@ -68,7 +68,7 @@ export default {
   methods: {
     goAccess () {
       const token = localStorage.getItem('token')
-      token ? this.$router.push('/') : this.$router.push('/login')
+      token ? this.$router.push('/home') : this.$router.push('/login')
     },
     openUrl () {
       openURL('https://s4fe-shop.io/')

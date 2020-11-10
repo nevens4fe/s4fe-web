@@ -3,7 +3,7 @@ import RequireAuth from '../utils/auth'
 
 const routes = [
   {
-    path: '/search',
+    path: '/',
     name: 'search',
     component: () => import('layouts/Auth.vue'),
     children: [
@@ -91,7 +91,7 @@ const routes = [
     ]
   },
   {
-    path: '/',
+    path: '/home',
     component: () => import('layouts/MainLayout.vue'),
     beforeEnter: RequireAuth,
     children: [
