@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="row">
       <div class="col-md-6 col-xs-12">
-        <h4 style="margin:10px" class="text-primary">Bulk Insert</h4>
+        <h4 style="margin:10px" class="text-primary">Bulk items insert</h4>
       </div>
       <div class="col-md-6 col-xs-12 text-right q-mb-md">
         <q-file v-model="csvfile" style="max-width: 150px; display:inline-block;" filled dense label="Choose File" />
@@ -150,11 +150,11 @@ export default {
       },
       columns: [
         { name: 'title', label: 'Title', field: 'title', align: 'left', sortable: true },
-        { name: 'serial', align: 'center', label: 'Serial', field: 'serial', sortable: true },
-        { name: 'desc', label: 'Description', field: 'desc' },
-        { name: 'category', label: 'Category', field: 'category' },
-        { name: 'status', label: 'Status', field: 'status' },
-        { name: 'is_valid', label: 'Validation', field: 'is_valid' }
+        { name: 'serial', align: 'left', label: 'Serial', field: 'serial', sortable: true },
+        { name: 'desc', label: 'Description', field: 'desc', align: 'left', sortable: true },
+        { name: 'category', label: 'Category', field: 'category', align: 'left', sortable: true },
+        { name: 'status', label: 'Status', field: 'status', align: 'left', sortable: true },
+        { name: 'is_valid', label: 'Validation', field: 'is_valid', align: 'left', sortable: true }
       ],
       data: [],
       categories: {}

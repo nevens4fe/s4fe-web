@@ -42,7 +42,7 @@
         <q-card class="bg-white no-shadow text-primary q-ma-none no-border-radius">
           <q-card-section class="bg-primary" style="height:89px" >
 <!--            <h5 class="q-ma-none" style="display:inline-block">My items</h5>-->
-            <q-btn icon="note_add" style="float:right; margin-left: 5px;margin-top:10px" :label="$q.platform.is.mobile ? '' : 'Bulk Insertion'" class="bg-secondary text-white" @click="$router.push('/bulk-insert')"/>
+            <q-btn icon="note_add" style="float:right; margin-left: 5px;margin-top:10px" :label="$q.platform.is.mobile ? '' : 'Bulk insert'" class="bg-secondary text-white" @click="$router.push('/bulk-insert')"/>
             <q-btn icon="add" style="float:right; margin-top:10px" :label="$q.platform.is.mobile ? '' : 'Add'" class="bg-secondary text-white" @click="dialog = true"/>
             <q-btn icon="send" style="float:right; margin-right: 5px;margin-top:10px" :label="$q.platform.is.mobile ? '' : 'Send'" class="bg-secondary text-white" @click="dialogTransfer = true, selectedItem = ''"/>
           </q-card-section>
@@ -367,8 +367,10 @@ export default {
       }
     },
     openEditProfile () {
+      console.log('popuni fields')
       this.firstName = this.currentUser.first_name
       this.lastName = this.currentUser.last_name
+      console.log(this.currentUser)
       this.dialogProfile = true
     },
     showInfo (item) {
