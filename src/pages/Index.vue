@@ -65,7 +65,7 @@
                     <q-btn icon="send" size="sm" class="text-white bg-secondary q-ma-xs" style="border-radius: 5px" @click="openTransfer(item)"/>
                   </q-item-section>
                   <q-item-section :side="!$q.platform.is.mobile">
-                    <q-btn icon="delete" size="sm" class="text-white bg-secondary q-ma-xs" style="border-radius: 5px" @click="deleteItem(item)"/>
+                    <q-btn icon="delete" size="sm" class="text-white bg-secondary q-ma-xs" style="border-radius: 5px" @click="confirmDelete(item)"/>
                   </q-item-section>
 
                 </q-item>
@@ -84,10 +84,16 @@
           </q-btn>
         </q-card-section>
         <q-card-section>
-          <q-input  square filled  v-model="firstName" type="text" class="q-pa-xs" label="First Name">
-          </q-input>
-          <q-input  square filled  v-model="lastName" type="text" class="q-pa-xs" label="Last Name">
-          </q-input>
+          <q-input  square filled  v-model="firstName" type="text" class="q-pa-xs" label="First Name" />
+          <q-input  square filled  v-model="lastName" type="text" class="q-pa-xs" label="Last Name" />
+          <q-input
+            square
+            filled
+            v-model="phone"
+            type="number"
+            class="q-pa-xs"
+            label="Phone Number"
+          />
         </q-card-section>
         <q-card-section class="text-white text-center q-ma-md">
           <q-btn class="bg-primary" @click="changeInfo()" size="md" style="padding: 6px 25px; display: block; margin:auto" >Change Info</q-btn>
@@ -262,6 +268,7 @@ export default {
       itemOptions: [],
       firstName: '',
       lastName: '',
+      phone: '',
       password1: '',
       password2: '',
       info: [],
@@ -370,6 +377,7 @@ export default {
       console.log('popuni fields')
       this.firstName = this.currentUser.first_name
       this.lastName = this.currentUser.last_name
+      this.phone = parseInt(this.currentUser.phone_number)
       console.log(this.currentUser)
       this.dialogProfile = true
     },
@@ -380,7 +388,8 @@ export default {
     changeInfo () {
       const formData = {
         first_name: this.firstName,
-        last_name: this.lastName
+        last_name: this.lastName,
+        phone_number: `+${this.phone}`
       }
       Axios.patch('https://s4fe.herokuapp.com/rest-auth/user/', formData, { headers: { Authorization: 'Token ' + localStorage.getItem('token') } })
         .then(res => {
@@ -472,8 +481,28 @@ export default {
       this.statusSelectedEdit = item.status
       this.dialogEdit = true
     },
+    confirmDelete (item) {
+      this.$q.dialog({
+        title: 'Confirm',
+        message: 'Are you sure that you want to delete this item?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        // console.log('>>>> OK')
+        this.deleteItem(item)
+      }).onOk(() => {
+        // console.log('>>>> second OK catcher')
+      }).onCancel(() => {
+        // console.log('>>>> Cancel')
+      }).onDismiss(() => {
+        // console.log('I am triggered on both OK and Cancel')
+      })
+    },
     deleteItem (item) {
-      this.$axios.delete('items/' + item.id + '/')
+      const formData = {
+        deleted: true
+      }
+      this.$axios.patch(`items/${item.id}/`, formData)
         .then(res => {
           this.fetchItems()
           this.$q.notify({

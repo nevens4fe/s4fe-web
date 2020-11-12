@@ -7,7 +7,15 @@
         <q-card-section v-if="!verified && !showOtp">
           <p class="text-white text-center">We require a verified phone number in order to make our platform more secure</p>
           <q-select style="margin-bottom: 10px;" dark  square filled v-model="countryCode" :options="contries" label="Choose Country" />
-          <q-input dark  square filled clearable v-model="phoneNumber" type="text" label="Enter Phone Number" >
+          <q-input
+            dark
+            square
+            filled
+            clearable
+            v-model="phoneNumber"
+            type="number"
+            label="Enter Phone Number"
+          >
             <template v-slot:prepend>
               <q-icon name="phone" />
             </template>
@@ -19,7 +27,7 @@
 
         <q-card-section v-if="!verified && showOtp">
           <p class="text-white text-center">Please enter otp code from SMS</p>
-          <q-input dark  square filled clearable v-model="otp" type="text" label="OTP Code" >
+          <q-input dark  square filled clearable v-model="otp" type="text" label="OTP Code" maxlength="4">
             <template v-slot:prepend>
               <q-icon name="code" />
             </template>
@@ -37,12 +45,12 @@
                 <q-icon name="email" />
               </template>
             </q-input>
-            <q-input dark dense square filled clearable v-model="firstName" type="text" label="First Name" >
+            <q-input dark dense square filled clearable v-model="firstName" type="text" label="First Name" maxlength="40">
               <template v-slot:prepend>
                 <q-icon name="add" />
               </template>
             </q-input>
-            <q-input dark dense square filled clearable v-model="lastName" type="text" label="Last Name" >
+            <q-input dark dense square filled clearable v-model="lastName" type="text" label="Last Name" maxlength="40">
               <template v-slot:prepend>
                 <q-icon name="add" />
               </template>

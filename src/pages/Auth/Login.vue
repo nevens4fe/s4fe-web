@@ -108,7 +108,7 @@ export default {
           console.log(res.data)
           localStorage.setItem('token', res.data.key)
           this.$q.localStorage.set('CURRENT_USER', res.data)
-          this.$router.push('/')
+          this.$router.push('/home')
         })
         .catch(e => {
           this.$q.notify({
