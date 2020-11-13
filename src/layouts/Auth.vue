@@ -12,7 +12,7 @@
 
           <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="search" :label="$q.platform.is.mobile ? '' : 'S4FE Search'" @click="$router.push('/')"/>
           <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="transform" :label="$q.platform.is.mobile ? '' : 'Transactions'" @click="$router.push('/transactions')"/>
-          <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="shopping_cart" :label="$q.platform.is.mobile ? '' : 'S4FE Shop'" @click="openUrl"/>
+          <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="shopping_cart" :label="$q.platform.is.mobile ? '' : 'S4FE Shop'" @click="openUrl('https://s4fe-shop.io/')"/>
           <q-btn flat color="primary" v-if="!$q.platform.is.mobile" icon="airplay" :label="$q.platform.is.mobile ? '' : 'Access App'" @click="goAccess"/>
           <q-btn flat color="primary" v-if="$q.platform.is.mobile" @click="drawer = !drawer" round dense icon="menu" />
 
@@ -39,8 +39,8 @@
             <q-btn flat color="white" label="How S4fe works" @click="$router.push('/how-it-works')"/>
             <q-btn flat color="white" label="Become a partner" @click="$router.push('/become-partner')"/>
             <q-btn flat color="white" label="Terms"  @click="$router.push('/terms')"/>
-            <q-btn flat color="white" label="Privacy" @click="$router.push('/privacy')"/>
-            <q-btn flat color="white" label="Download App" @click="$router.push('/app')"/>
+            <q-btn flat color="white" label="Privacy" @click="openUrl('http://localhost:8080/statics/Privacy-Policy_S4FE.pdf')"/>
+<!--            <q-btn flat color="white" label="Download App" @click="$router.push('/app')"/>-->
           </div>
         </q-scroll-area>
       </q-drawer>
@@ -49,8 +49,8 @@
         <q-btn flat color="primary" label="How S4fe works" @click="$router.push('/how-it-works')"/>
         <q-btn flat color="primary" label="Become a partner" @click="$router.push('/become-partner')"/>
         <q-btn flat color="primary" label="Terms" style="float:right" @click="$router.push('/terms')"/>
-        <q-btn flat color="primary" label="Privacy" style="float:right" @click="$router.push('/privacy')"/>
-        <q-btn flat color="primary" label="Download App" style="float:right" @click="$router.push('/app')"/>
+        <q-btn flat color="primary" label="Privacy" style="float:right" @click.native="openUrl('http://localhost:8080/statics/Privacy-Policy_S4FE.pdf')"/>
+<!--        <q-btn flat color="primary" label="Download App" style="float:right" @click="$router.push('/app')"/>-->
       </q-footer>
     </q-page-container>
   </q-layout>
@@ -70,8 +70,8 @@ export default {
       const token = localStorage.getItem('token')
       token ? this.$router.push('/home') : this.$router.push('/login')
     },
-    openUrl () {
-      openURL('https://s4fe-shop.io/')
+    openUrl (url) {
+      openURL(url)
     }
   }
 }
