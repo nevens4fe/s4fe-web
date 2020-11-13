@@ -35,7 +35,15 @@
                   </q-btn>
                 </div>
                 <div class="col-md-6 col-xs-12 text-center">
-                  <q-btn size="md" rounded color="primary" class="no-shadow q-mr-md q-mt-md desktop-only" style="height:45px; padding: 0 16px "  label="Report Item"  />
+                  <q-btn
+                    size="md"
+                    rounded
+                    color="primary"
+                    class="no-shadow q-mr-md q-mt-md desktop-only"
+                    style="height:45px; padding: 0 16px"
+                    label="Report Item"
+                    @click="goAccess"
+                  />
                 </div>
               </div>
             </q-card-section>
@@ -69,7 +77,7 @@ export default {
   methods: {
     goAccess () {
       const token = localStorage.getItem('token')
-      token ? this.$router.push('/') : this.$router.push('/login')
+      token ? this.$router.push('/home') : this.$router.push('/login')
     },
     startScreen () {
       this.loading = true
