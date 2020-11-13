@@ -39,7 +39,7 @@
             <q-btn flat color="white" label="How S4fe works" @click="$router.push('/how-it-works')"/>
             <q-btn flat color="white" label="Become a partner" @click="$router.push('/become-partner')"/>
             <q-btn flat color="white" label="Terms"  @click="$router.push('/terms')"/>
-            <q-btn flat color="white" label="Privacy" @click="openUrl('http://localhost:8080/statics/Privacy-Policy_S4FE.pdf')"/>
+            <q-btn flat color="white" label="Privacy" @click="openUrl('https://s4fe.org/statics/Privacy-Policy_S4FE.pdf')"/>
 <!--            <q-btn flat color="white" label="Download App" @click="$router.push('/app')"/>-->
           </div>
         </q-scroll-area>
