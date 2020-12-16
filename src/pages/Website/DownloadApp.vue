@@ -25,7 +25,7 @@ export default {
   components: { QrcodeVue },
   data () {
     return {
-      value: ''
+      value: 'https://www.s4fe.org/qr'
     }
   },
   methods: {
@@ -35,10 +35,9 @@ export default {
     }
   },
   mounted () {
-    console.info('App this router:', window.location)
     this.value = window.location.href
     if (this.$q.platform.is.android) {
-      window.location = 'https://play.google.com/store'
+      window.location = 'https://play.google.com'
     } else if (this.$q.platform.is.ios) {
       window.location = 'https://www.apple.com/app-store/'
     }

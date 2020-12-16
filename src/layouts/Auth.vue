@@ -40,7 +40,7 @@
             <q-btn flat color="white" label="Become a partner" @click="$router.push('/become-partner')"/>
             <q-btn flat color="white" label="Terms"  @click="openUrl('https://www.s4fe.org/statics/Terms_of_use.pdf')"/>
             <q-btn flat color="white" label="Privacy" @click="openUrl('https://www.s4fe.org/statics/Privacy-Policy_S4FE.pdf')"/>
-<!--            <q-btn flat color="white" label="Download App" @click="$router.push('/app')"/>-->
+            <q-btn flat color="white" label="Download App" @click="$router.push('/qr')"/>
           </div>
         </q-scroll-area>
       </q-drawer>
@@ -50,7 +50,7 @@
         <q-btn flat color="primary" label="Become a partner" @click="$router.push('/become-partner')"/>
         <q-btn flat color="primary" label="Terms" style="float:right" @click="openUrl('https://www.s4fe.org/statics/Terms_of_use.pdf')"/>
         <q-btn flat color="primary" label="Privacy" style="float:right" @click.native="openUrl('https://www.s4fe.org/statics/Privacy-Policy_S4FE.pdf')"/>
-<!--        <q-btn flat color="primary" label="Download App" style="float:right" @click="$router.push('/app')"/>-->
+        <q-btn flat color="primary" label="Download App" style="float:right" @click="$router.push('/qr')"/>
       </q-footer>
     </q-page-container>
   </q-layout>

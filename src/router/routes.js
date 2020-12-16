@@ -51,7 +51,7 @@ const routes = [
     ]
   },
   {
-    path: '/app',
+    path: '/qr',
     name: 'AppDownload',
     component: () => import('layouts/Auth.vue'),
     children: [
