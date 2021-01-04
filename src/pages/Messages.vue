@@ -76,9 +76,10 @@
                     v-for="m in messages"
                     :key="m.id"
                     :name="m.user"
-                    :text="[m.content]"
+                    :text="[m.message]"
                     text-color="white"
-                    :bg-color="currentUser.id == m.receiver ? 'primary' : 'secondary'"
+                    :bg-color="currentUser.id === m.user_id ? 'primary' : 'secondary'"
+                    :sent="currentUser.id === m.user_id"
                   />
                   <!-- Messages END -->
                 </q-scroll-area>
@@ -106,7 +107,7 @@
         </div>
       </q-card-section>
     </q-card>
-
+<pre>{{chosenUser}}</pre>
   </q-page>
 </template>
 
@@ -144,7 +145,7 @@ export default {
       this.newMessage = ''
     },
     getMessages () {
-      this.$axios.get('messages/?receiver=' + this.currentUser.id)
+      this.$axios.get('messages-within-topic/?user_id=' + this.chosenUser.user_id)
         .then(res => {
           console.log('messages', res)
           this.messages = res.data
@@ -169,7 +170,9 @@ export default {
   mounted () {
     this.getMessages()
     this.getTopics()
-    // setInterval(() => (this.getMessages()), 1000)
+    if (this.chosenUser) {
+      setInterval(() => (this.getMessages()), 1000)
+    }
   }
 }
 </script>
