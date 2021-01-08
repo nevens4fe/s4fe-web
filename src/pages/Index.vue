@@ -319,7 +319,7 @@ export default {
         desc: this.description,
         status: this.statusSelected.value,
         user: this.currentUser.id,
-        key: '123123213'
+        key: 0
       }
       this.$axios.post('items/', formData)
         .then(res => {
@@ -455,7 +455,7 @@ export default {
         desc: this.descriptionEdit,
         status: this.statusSelectedEdit.value,
         user: this.currentUser.id,
-        key: '123123213'
+        key: 0
       }
       this.$axios.patch('items/' + this.choosenItem + '/', formData)
         .then(res => {

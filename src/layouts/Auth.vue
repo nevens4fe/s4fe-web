@@ -32,9 +32,10 @@
         <q-scroll-area class="fit">
           <div class="q-pa-sm">
             <h6 class="text-center">S4FE Menu</h6>
-            <q-btn flat color="white"  icon="search" label="S4FE Search" @click="$router.push('/')"/>
-            <q-btn flat color="white" icon="airplay" label="Access App" @click="goAccess"/>
-            <q-btn flat color="white" icon="transform" label="Transactions" @click="$router.push('/transactions')"/>
+            <q-btn flat color="white"  icon="search" label="S4FE Search" @click="$router.push('/')" />
+            <q-btn flat color="white" icon="transform" label="Transactions" @click="$router.push('/transactions')" />
+            <q-btn flat color="white" icon="shopping_cart" label="Shop" @click="openUrl('https://s4fe-shop.io/')" />
+            <q-btn flat color="white" icon="airplay" label="Access App" @click="goAccess" />
             <q-btn flat color="white" label="About S4fe" style="margin-top:20px" @click="$router.push('/about')"/>
             <q-btn flat color="white" label="How S4fe works" @click="$router.push('/how-it-works')"/>
             <q-btn flat color="white" label="Become a partner" @click="$router.push('/become-partner')"/>

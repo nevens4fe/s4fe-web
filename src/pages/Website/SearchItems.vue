@@ -4,6 +4,7 @@
 
       <q-header style="background: #f3f3f3; padding:15px" >
         <q-toolbar>
+          <a href="/">
             <img
               alt="App logo"
               style="margin-left: 30px"
@@ -11,7 +12,8 @@
               src="~assets/S4FE_Logo.png"
               class="desktop-only"
             >
-          <q-input  rounded outlined clearable v-model="search" style="margin-left: 50px; width: 40%" type="text" class="mobile-full" label="Type name or serial number">
+          </a>
+          <q-input  rounded outlined clearable v-model="search" style="margin-left: 50px; width: 40%" type="text" class="mobile-full" label="Insert serial number">
             <template v-slot:prepend>
               <q-icon name="search" />
             </template>
@@ -69,6 +71,7 @@
             <div class="col-md-3">
               <q-btn  color="primary" class="no-shadow full-width no-border-radius" label="SEND" style="height: 55px;margin-top:-10px" @click="sendMessage" />
             </div>
+            {{item}}
           </q-card-section>
         </q-card>
       </q-dialog>
@@ -103,7 +106,7 @@ export default {
     },
     sendMessage () {
       const formData = {
-        receiver: 1,
+        receiver: this.item.user_id,
         content: this.message
       }
       this.$axios.post('messages/', formData)
@@ -116,7 +119,7 @@ export default {
     },
     goAccess () {
       const token = localStorage.getItem('token')
-      token ? this.$router.push('/') : this.$router.push('/login')
+      token ? this.$router.push('/home') : this.$router.push('/login')
     },
     searchItems () {
       this.loading = true

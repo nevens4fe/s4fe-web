@@ -80,22 +80,24 @@ export default {
       token ? this.$router.push('/home') : this.$router.push('/login')
     },
     startScreen () {
-      this.loading = true
-      this.$axios.get('search?serial=' + this.search)
-        .then(res => {
-          this.item = res.data
-          this.startSearch = true
-          this.loading = false
-        })
-        .catch(e => {
-          this.loading = false
-          this.$q.notify({
-            message: e.response.data.status,
-            icon: 'announcement'
+      if (this.search.length > 0) {
+        this.loading = true
+        this.$axios.get('search?serial=' + this.search)
+          .then(res => {
+            this.item = res.data
+            this.startSearch = true
+            this.loading = false
           })
-          console.log(e)
-          console.log(e.response)
-        })
+          .catch(e => {
+            this.loading = false
+            this.$q.notify({
+              message: e.response.data.status,
+              icon: 'announcement'
+            })
+            console.log(e)
+            console.log(e.response)
+          })
+      }
     }
   }
 }

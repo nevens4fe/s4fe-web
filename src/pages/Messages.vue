@@ -36,9 +36,9 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label>{{ topic.user }}</q-item-label>
-                    <q-item-label style="font-size: 0.8em" v-if="topic.unread">
-                      {{ topic.unread !== 1 ? topic.unread + ' new messages' : '1 new message' }}
-                    </q-item-label>
+<!--                    <q-item-label style="font-size: 0.8em" v-if="topic.unread">-->
+<!--                      {{ topic.unread !== 1 ? topic.unread + ' new messages' : '1 new message' }}-->
+<!--                    </q-item-label>-->
                   </q-item-section>
 <!--                  <q-item-section side style="color:#c2c6dc !important;" v-if="user.last_msg_time">-->
 <!--                    {{ user.last_msg_time }} ago-->
@@ -107,7 +107,6 @@
         </div>
       </q-card-section>
     </q-card>
-<pre>{{chosenUser}}</pre>
   </q-page>
 </template>
 
@@ -121,13 +120,19 @@ export default {
       newMessage: '',
       search: '',
       topics: [],
-      messages: []
+      messages: [],
+      interval: null
     }
   },
   computed: {
     ...mapGetters(['currentUser']),
     layout () {
       return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
+    }
+  },
+  watch: {
+    chosenUser () {
+      this.refreshMessages()
     }
   },
   methods: {
@@ -165,14 +170,21 @@ export default {
           console.log(e)
           console.log(e.response)
         })
+    },
+    refreshMessages () {
+      if (this.chosenUser.user_id) {
+        console.log('ide interval')
+        this.interval = setInterval(() => (this.getMessages()), 1000)
+      }
     }
   },
   mounted () {
-    this.getMessages()
     this.getTopics()
-    if (this.chosenUser) {
-      setInterval(() => (this.getMessages()), 1000)
-    }
+    this.refreshMessages()
+  },
+  destroyed () {
+    console.log('distro')
+    clearInterval(this.interval)
   }
 }
 </script>
