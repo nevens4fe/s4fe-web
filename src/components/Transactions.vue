@@ -2,12 +2,12 @@
     <q-table
       flat
       class="bg-transparent text-primary"
-      hide-bottom
       :data="data"
       :style="$q.platform.is.mobile ? 'max-width: 75vw' : ''"
       :columns="columns"
       row-key="name"
       :filter="filter"
+      :pagination="initialPagination"
     >
       <template v-slot:top-right>
         <q-input  dense debounce="300" v-model="filter" placeholder="Search">
@@ -23,6 +23,13 @@
 export default {
   data () {
     return {
+      initialPagination: {
+        sortBy: 'desc',
+        descending: false,
+        page: 1,
+        rowsPerPage: 10
+        // rowsNumber: xx if getting data from a server
+      },
       columns: [
         { name: 'item', align: 'center', label: 'Item', field: 'item' },
         { name: 'from_user', align: 'center', label: 'From User', field: 'from_user' },

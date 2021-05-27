@@ -37,9 +37,9 @@ export default {
   mounted () {
     this.value = window.location.href
     if (this.$q.platform.is.android) {
-      window.location = 'https://play.google.com'
+      window.location = 'https://play.google.com/store/apps/details?id=com.s4fe'
     } else if (this.$q.platform.is.ios) {
-      window.location = 'https://www.apple.com/app-store/'
+      window.location = 'https://apps.apple.com/us/app/s4fe/id1437746473'
     }
   }
 }

@@ -48,7 +48,7 @@
 
       <!-- Message Modal -->
       <q-dialog v-model="msgModal">
-        <q-card style="min-height: 250px" class="desktop-size">
+        <q-card style="width: 500px" class="desktop-size">
           <q-card-section class="row items-center q-pb-none q-ma-md">
             <div class="text-h6" v-if="!loggedUser">Only for App Users</div>
             <div class="text-h6" v-else>Send Message to the Owner</div>
@@ -71,7 +71,6 @@
             <div class="col-md-3">
               <q-btn  color="primary" class="no-shadow full-width no-border-radius" label="SEND" style="height: 55px;margin-top:-10px" @click="sendMessage" />
             </div>
-            {{item}}
           </q-card-section>
         </q-card>
       </q-dialog>
