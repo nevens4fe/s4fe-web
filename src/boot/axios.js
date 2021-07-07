@@ -4,7 +4,7 @@ import Router from 'src/router'
 
 const Axios = axios.create({
   baseURL: process.env.NODE_ENV === 'development'
-    ? 'https://s4fe.herokuapp.com/api/v1/'
+    ? 'http://127.0.0.1:8001/api/v1/'
     : 'https://s4fe.herokuapp.com/api/v1/'
 
 })

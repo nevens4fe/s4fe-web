@@ -121,16 +121,18 @@
           </q-btn>
         </q-card-section>
         <q-card-section>
+
+          <category-selection :selected.sync="selectedCategory" @selection:changed="(item)=>selectedCategory=item"/>
           <q-input  square filled clearable v-model="title" type="text" class="q-pa-xs" label="Title">
           </q-input>
           <q-input  square filled clearable v-model="serial" type="text" class="q-pa-xs" label="Serial">
           </q-input>
-          <q-select filled v-model="categorySelected" :options="categoryOptions" class="q-pa-xs" label="Category" />
           <q-input
             v-model="description"
             filled
             label="Description"
             type="textarea"
+            class="q-pa-xs"
           />
           <q-select filled v-model="statusSelected" :options="statusOptions" class="q-pa-xs" label="Status" />
         </q-card-section>
@@ -149,6 +151,8 @@
           </q-btn>
         </q-card-section>
         <q-card-section>
+          <q-input  square  disable v-model="info.category_title" type="text" class="q-pa-xs" label="Category">
+          </q-input>
           <q-input  square  disable v-model="info.title" type="text" class="q-pa-xs" label="Title">
           </q-input>
           <q-input  square  disable v-model="info.serial" type="text" class="q-pa-xs" label="Serial">
@@ -157,14 +161,13 @@
           </q-input>
           <q-input  square  disable v-model="info.unique_identifier" type="text" class="q-pa-xs" label="Unique Identifier">
           </q-input>
-          <q-select disable v-model="info.category" map-options :options="categoryOptions" class="q-pa-xs" label="Category" />
           <q-select disable v-model="info.status" map-options :options="statusOptions" class="q-pa-xs" label="Status" />
         </q-card-section>
       </q-card>
     </q-dialog>
 
     <!-- Edit Item -->
-    <q-dialog v-model="dialogEdit" class="no-border-radius" :maximized="$q.platform.is.mobile">
+    <q-dialog v-model="dialogEdit" class="no-border-radius" :maximized="$q.platform.is.mobile" >
       <q-card :style="$q.platform.is.mobile ? '' : 'width: 450px'">
         <q-card-section class="bg-primary text-white"><h5 class="q-ma-xs">Add new item</h5>
           <q-btn dense flat icon="close" style="float:right; margin-top:-35px" v-close-popup>
@@ -172,16 +175,17 @@
           </q-btn>
         </q-card-section>
         <q-card-section>
+          <category-selection :selected.sync="selectedCategoryEdit" @selection:changed="(item)=>selectedCategoryEdit=item"/>
           <q-input  square filled clearable v-model="titleEdit" type="text" class="q-pa-xs" label="Title">
           </q-input>
           <q-input  square filled clearable v-model="serialEdit" type="text" class="q-pa-xs" label="Serial">
           </q-input>
-          <q-select filled v-model="categorySelectedEdit" map-options :options="categoryOptions" class="q-pa-xs" label="Category" />
           <q-input
             v-model="descriptionEdit"
             filled
             label="Description"
             type="textarea"
+            class="q-pa-xs"
           />
           <q-select filled v-model="statusSelectedEdit" map-options :options="statusOptions" class="q-pa-xs" label="Status" />
         </q-card-section>
@@ -228,13 +232,14 @@
 </template>
 
 <script>
+import CategorySelection from '../components/CategorySelection'
 import { mapGetters } from 'vuex'
-import Axios from 'axios'
 import QrcodeVue from 'qrcode.vue'
+import { UpdateUser as ApiUpdateUser, ChangePassword as ApiChangePassword } from '../utils/auth_api'
 
 export default {
   name: 'MainLayout',
-  components: { QrcodeVue },
+  components: { QrcodeVue, CategorySelection },
   computed: {
     ...mapGetters(['currentUser'])
   },
@@ -248,9 +253,8 @@ export default {
       dialogProfile: false,
       serial: '',
       serialEdit: '',
-      categoryOptions: [],
-      categorySelected: '',
-      categorySelectedEdit: '',
+      selectedCategory: null,
+      selectedCategoryEdit: null,
       choosenItem: '',
       statusOptions: [
         { label: 'Active', value: 'A' },
@@ -297,25 +301,11 @@ export default {
           console.log(e.response)
         })
     },
-    fetchCategories () {
-      const categories = []
-      this.$axios.get('categories/')
-        .then(res => {
-          res.data.map(item => {
-            categories.push({ label: item.title, value: item.id })
-          })
-          this.categoryOptions = categories
-        })
-        .catch(e => {
-          console.log(e)
-          console.log(e.response)
-        })
-    },
     addItem () {
       const formData = {
         title: this.title,
         serial: this.serial,
-        category: this.categorySelected.value,
+        category: this.selectedCategory?.id,
         desc: this.description,
         status: this.statusSelected.value,
         user: this.currentUser.id,
@@ -383,6 +373,7 @@ export default {
     },
     showInfo (item) {
       this.info = item
+      this.info.category_title = item?.category_info?.title
       this.dialogInfo = true
     },
     changeInfo () {
@@ -391,7 +382,7 @@ export default {
         last_name: this.lastName,
         phone_number: `+${this.phone}`
       }
-      Axios.patch('https://s4fe.herokuapp.com/rest-auth/user/', formData, { headers: { Authorization: 'Token ' + localStorage.getItem('token') } })
+      ApiUpdateUser(formData, localStorage.getItem('token'))
         .then(res => {
           this.$q.localStorage.set('CURRENT_USER', res.data)
           const currentUser = this.$q.localStorage.getItem('CURRENT_USER')
@@ -423,7 +414,7 @@ export default {
         new_password1: this.password1,
         new_password2: this.password2
       }
-      Axios.post('https://s4fe.herokuapp.com/rest-auth/password/change/', formData, { headers: { Authorization: 'Token ' + localStorage.getItem('token') } })
+      ApiChangePassword(formData, localStorage.getItem('token'))
         .then(res => {
           this.dialogProfile = false
           this.$q.notify({
@@ -451,7 +442,7 @@ export default {
       const formData = {
         title: this.titleEdit,
         serial: this.serialEdit,
-        category: this.categorySelectedEdit.value,
+        category: this.selectedCategoryEdit?.id,
         desc: this.descriptionEdit,
         status: this.statusSelectedEdit.value,
         user: this.currentUser.id,
@@ -476,7 +467,7 @@ export default {
       this.titleEdit = item.title
       this.choosenItem = item.id
       this.serialEdit = item.serial
-      this.categorySelectedEdit = item.category
+      this.selectedCategoryEdit = item.category_info
       this.descriptionEdit = item.desc
       this.statusSelectedEdit = item.status
       this.dialogEdit = true
@@ -522,7 +513,6 @@ export default {
     }
   },
   created () {
-    this.fetchCategories()
     this.fetchItems()
   }
 }

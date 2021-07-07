@@ -72,11 +72,11 @@
         </q-card-section>
         <q-separator />
         <div class="row q-pt-md" v-if="showSocial">
-          <div class="col-md-6 col-xs-12 text-center" style="margin-top:10px">
-            <q-btn outline color="white" class="no-shadow" style="height:35px" label="Continue With Facebook" @click="auth('facebook')" />
+          <div class="col-md-6 col-xs-6 text-center" style="margin-top:10px">
+            <q-btn outline color="white" class="no-shadow" style="height:35px" :label="$q.platform.is.mobile ? 'Facebook' : 'Continue With Facebook'" @click="auth('facebook')" />
           </div>
-          <div class="col-md-6 col-xs-12 text-center" style="margin-top:10px">
-            <q-btn outline color="white" class="no-shadow" style="height:35px" label="Continue With Google" @click="auth('google')" />
+          <div class="col-md-6 col-xs-6 text-center" style="margin-top:10px">
+            <q-btn outline color="white" class="no-shadow" style="height:35px" :label="$q.platform.is.mobile ? 'Google' : 'Continue With Google'" @click="auth('google')" />
           </div>
         </div>
         <div class="col-12 text-center q-mt-md" v-if="showOtp || verified">
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import { SocialLogin as ApiSocialLogin, Register as ApiRegister } from '../../utils/auth_api'
 
 export default {
   name: 'Login',
@@ -123,7 +123,7 @@ export default {
       const formData = {
         access_token: token
       }
-      Axios.post('https://s4fe.herokuapp.com/rest-auth/' + network + '/', formData)
+      ApiSocialLogin(network, formData)
         .then(res => {
           console.log(res.data)
           localStorage.setItem('token', res.data.key)
@@ -201,7 +201,8 @@ export default {
         password2: this.password2
       }
 
-      Axios.post('https://s4fe.herokuapp.com/rest-auth/registration/', formData)
+      // Axios.post('https://s4fe.herokuapp.com/rest-auth/registration/', formData)
+      ApiRegister(formData)
         .then(res => {
           console.log(res.data)
           this.$q.notify({

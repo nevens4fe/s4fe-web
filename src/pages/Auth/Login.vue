@@ -15,7 +15,7 @@
           >
           <q-card-section class="text-grey-8">
             <q-form class="q-gutter-md q-mt-xl">
-              <q-input dark square filled clearable v-model="email" style="height: 35px" type="email" label="Email">
+              <q-input dark square filled clearable v-model="email" type="email" label="Email">
                 <template v-slot:prepend>
                   <q-icon name="email" />
                 </template>
@@ -39,7 +39,7 @@
               <div class="col-6">
                 <a  @click="$router.push('/forgot-password')" class="cursor-pointer text-no-wrap text-white text-right" style="display: block">Forgot password</a>
               </div>
-              <q-separator class="q-ma-md text-left center-phone"/>
+              <q-separator class="q-ma-md text-left center-phone" style="width: 100%;"/>
               <div class="col-md-6 col-xs-6">
                 <q-btn outline color="white" icon="fab fa-facebook-f" class="no-shadow" style="height:35px; font-size: 0.8em" :label="$q.platform.is.mobile ? 'Facebook' : 'Continue With Facebook'" @click="auth('facebook')" />
               </div>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import { SocialLogin as ApiSocialLogin, Login as ApiLogin } from '../../utils/auth_api'
 
 export default {
   name: 'Login',
@@ -82,7 +82,7 @@ export default {
       const formData = {
         access_token: token
       }
-      Axios.post('https://s4fe.herokuapp.com/rest-auth/' + network + '/', formData)
+      ApiSocialLogin(network, formData)
         .then(res => {
           console.log(res.data)
           localStorage.setItem('token', res.data.key)
@@ -103,7 +103,7 @@ export default {
         email: this.email,
         password: this.password
       }
-      Axios.post('https://s4fe.herokuapp.com/rest-auth/login/', formData)
+      ApiLogin(formData)
         .then(res => {
           console.log(res.data)
           localStorage.setItem('token', res.data.key)

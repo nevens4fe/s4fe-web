@@ -5,7 +5,7 @@
     <q-card square dark class="login-box q-pa-xs q-ma-none bg-transparent no-box-shadow" style="width:480px;">
       <q-card-section v-if="!showMessage">
         <p class="text-white text-center">Enter your email and we will send you instructions</p>
-        <q-input dark  square filled clearable v-model="email" type="text" label="Email" >
+        <q-input dark square filled clearable v-model="email" type="text" label="Email" >
           <template v-slot:prepend>
             <q-icon name="email" />
           </template>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import { ResetPassword as ApiResetPassword } from '../../utils/auth_api'
 
 export default {
   name: 'Login',
@@ -42,7 +42,7 @@ export default {
       const formData = {
         email: this.email
       }
-      Axios.post('https://s4fe.herokuapp.com/rest-auth/password/reset/', formData)
+      ApiResetPassword(formData)
         .then(res => {
           console.log(res.data)
           this.showMessage = true
