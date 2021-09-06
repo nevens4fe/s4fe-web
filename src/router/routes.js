@@ -99,6 +99,14 @@ const routes = [
       { path: '/chat', component: () => import('pages/Messages.vue') },
       { path: '/bulk-insert', component: () => import('pages/BulkInsert.vue') }
     ]
+  },
+  {
+    path: '/stolen/:serial?',
+    name: 'stolen_items',
+    component: () => import('layouts/Auth.vue'),
+    children: [
+      { path: '', component: () => import('pages/Website/Stolen.vue') }
+    ]
   }
 ]
 

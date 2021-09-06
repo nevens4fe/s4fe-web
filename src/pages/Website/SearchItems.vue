@@ -30,10 +30,13 @@
           <div class="col-md-6 text-center">
             <q-card  class="text-white q-pa-xs q-ma-xl no-box-shadow" style="background: linear-gradient(90deg, rgba(242,111,67,1) 0%, rgba(236,168,36,1) 100%); border-radius:15px">
               <q-card-section v-if="!loading">
-               <h3 style="margin-bottom: 25px !important;">{{ item.title }}</h3>
-                <span>Status:</span>
-                <h6 class="q-ma-none q-mb-lg">{{ item.status }}</h6>
-                <q-btn outline color="white" class="no-shadow" style="height:35px" label="Contact Owner" @click="openModal" />
+                <div v-for="(item, index) in foundItems" :key="item.title" :class="index == foundItems.length -1 ? '' : 'lost-item'">
+                  <h3 style="margin-bottom: 25px !important;">{{ item.title }}</h3>
+                  <span>Status:</span>
+                  <h6 class="q-ma-none q-mb-lg">{{ item.status }}</h6>
+                  <q-btn outline color="white" class="no-shadow" style="height:35px" label="Contact Owner" @click="openModal(item)" />
+
+                </div>
               </q-card-section>
               <q-card-section v-else>
                 <q-spinner-hourglass
@@ -69,7 +72,7 @@
               </q-input>
             </div>
             <div class="col-md-3">
-              <q-btn  color="primary" class="no-shadow full-width no-border-radius" label="SEND" style="height: 55px;margin-top:-10px" @click="sendMessage" />
+              <q-btn  color="primary" class="no-shadow full-width no-border-radius" label="SEND" style="height: 55px;" @click="sendMessage" />
             </div>
           </q-card-section>
         </q-card>
@@ -88,32 +91,37 @@ export default {
   data () {
     return {
       search: '',
-      item: [],
+      foundItems: [],
       loading: false,
       noData: false,
       msgModal: false,
       loggedUser: false,
-      message: ''
+      message: '',
+      user_id: null
     }
   },
   methods: {
-    openModal () {
+    openModal (item) {
       const token = localStorage.getItem('token')
-      console.log(token)
       token ? this.loggedUser = true : this.loggedUser = false
       this.msgModal = true
+      this.user_id = item.user_id
     },
     sendMessage () {
       const formData = {
-        receiver: this.item.user_id,
+        receiver: this.user_id,
         content: this.message
       }
       this.$axios.post('messages/', formData)
         .then(res => {
           console.log(res)
           this.msgModal = false
+          this.user_id = null
+          this.message = ''
         }).catch(e => {
           console.log(e)
+          this.user_id = null
+          this.message = ''
         })
     },
     goAccess () {
@@ -124,12 +132,12 @@ export default {
       this.loading = true
       this.$axios.get('search?serial=' + this.search)
         .then(res => {
-          this.item = res.data
+          this.foundItems = res.data
           this.loading = false
           this.noData = false
         })
         .catch(e => {
-          this.item = []
+          this.foundItems = []
           this.noData = true
           this.loading = false
           this.$q.notify({
@@ -143,8 +151,7 @@ export default {
   },
   created () {
     this.search = this.searchSerial
-    console.log(this.items)
-    this.item = this.items
+    this.foundItems = this.items
   }
 }
 </script>
@@ -152,6 +159,10 @@ export default {
 <style>
 .q-btn__wrapper:before {
   box-shadow: none !important;
+}
+.lost-item {
+  padding-bottom: 25px;
+  border-bottom: 2px solid rgba(255,242,242, 0.5);
 }
 @media only screen and (max-width: 600px) {
   .mobile-full {

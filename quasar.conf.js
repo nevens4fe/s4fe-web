@@ -54,7 +54,8 @@ module.exports = function (ctx) {
         'LocalStorage',
         'SessionStorage',
         'openURL',
-        'Dialog'
+        'Dialog',
+        'Meta'
       ]
     },
 
