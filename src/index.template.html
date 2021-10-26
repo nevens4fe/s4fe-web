@@ -33,6 +33,26 @@
     <meta property="twitter:title" content="S4FE - the world’s first blockchain-based global database of stolen and lost items">
     <meta property="twitter:description" content="S4FE is the world’s first blockchain-based global database for the registration and identification of stolen and lost items. The database is accessible to everyone and enables users to register and search for property. The types of property include the likes of electronic devices, jewelry, personal collections, documents, vehicles, and any item representing value to its owner.">
     <meta property="twitter:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
+    <meta property="facebook-domain-verification" content="92iic233omzjnrync9wg40s53bn200">
+
+    <!-- TikTok Analytics -->
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+        ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],
+          ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+        for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+        ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);
+        return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+        ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
+        var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;
+        var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+        ttq.load('C5R68OK247C0IGAJUS1G');
+        ttq.page();
+      }(window, document, 'ttq');
+    </script>
+    <!-- End TikTok -->
   </head>
   <body>
     <!-- DO NOT touch the following DIV -->
@@ -48,21 +68,53 @@
       gtag('config', 'G-L85VXV8WF7');
     </script>
     <!-- Facebook Pixel Code -->
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    <script type="text/javascript">
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
+       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+       n.agent='plwebflow';n.queue=[];t=b.createElement(e);t.async=!0;
+       t.src=v;s=b.getElementsByTagName(e)[0];
+       s.parentNode.insertBefore(t,s)}(window,document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '390372512012896');
+      fbq('consent', 'revoke');
+      fbq('init', '540242723933137');
       fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-                   src="https://www.facebook.com/tr?id=390372512012896&ev=PageView&noscript=1"
-    /></noscript>
     <!-- End Facebook Pixel Code -->
+
+    <div id="consentPopup" class="consentpopup opened">
+      <div class="div-block-113">
+        <p class="paragraph-12">We uses cookies to provide necessary website functionality, improve your experience and analyze our traffic.</p>
+        <a id="cookieConsentBtn" href="#" class="consentbtn w-button">Accept cookies</a>
+        <a id="cookieDeclineBtn" href="#" class="button-2 w-button">Decline</a>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      const popup = document.getElementById('consentPopup');
+      const alreadyLoaded = window.localStorage.getItem('fbGrantConsent') === 'true';
+      //Show the consent banner if consent is not granted, hide it if consent is already granted.
+      const closeConsent = () => {
+        popup.classList.remove('opened');
+        popup.classList.add('closed');
+      }
+      if (alreadyLoaded) {
+        popup.style.display = 'none';
+        fbq('consent', 'grant');
+      } else {
+        popup.style.display = 'fixed';
+      }
+      //Grant consent and store it in localStorage of the browser
+      const consentBtn = document.getElementById('cookieConsentBtn');
+      const declineBtn = document.getElementById('cookieDeclineBtn');
+      consentBtn.addEventListener("click", function() {
+        fbq('consent', 'grant');
+        window.localStorage.setItem('fbGrantConsent', 'true');
+        closeConsent();
+      });
+      declineBtn.addEventListener("click", function() {
+        closeConsent();
+      });
+    </script>
   </body>
 </html>
