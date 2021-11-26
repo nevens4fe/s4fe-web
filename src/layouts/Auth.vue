@@ -36,7 +36,7 @@
             <q-btn flat color="white" icon="transform" label="Transactions" @click="$router.push('/transactions')" />
             <q-btn flat color="white" icon="shopping_cart" label="Shop" @click="openUrl('https://s4fe-shop.io/')" />
             <q-btn flat color="white" icon="airplay" label="Access App" @click="goAccess" />
-            <q-btn flat color="white" label="About S4fe" style="margin-top:20px" @click="$router.push('/about')"/>
+            <q-btn flat color="white" label="About S4fe" style="margin-top:20px" type="a" href="/about"/>
             <q-btn flat color="white" label="How S4fe works" @click="$router.push('/how-it-works')"/>
             <q-btn flat color="white" label="Become a partner" @click="$router.push('/become-partner')"/>
             <q-btn flat color="white" label="Terms"  @click="openUrl('https://www.s4fe.org/statics/Terms_of_use.pdf')"/>
@@ -46,7 +46,7 @@
         </q-scroll-area>
       </q-drawer>
       <q-footer v-if="!$q.platform.is.mobile" style="background:#f3f3f3" class="q-pa-md">
-        <q-btn flat color="primary" label="About S4fe" @click="$router.push('/about')"/>
+        <q-btn flat color="primary" label="About S4fe" type="a" href="/about"/>
         <q-btn flat color="primary" label="How S4fe works" @click="$router.push('/how-it-works')"/>
         <q-btn flat color="primary" label="Become a partner" @click="$router.push('/become-partner')"/>
         <q-btn flat color="primary" label="Terms" style="float:right" @click="openUrl('https://www.s4fe.org/statics/Terms_of_use.pdf')"/>

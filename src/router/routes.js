@@ -18,14 +18,14 @@ const routes = [
       { path: '', component: () => import('pages/Website/Transactions.vue') }
     ]
   },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('layouts/Auth.vue'),
-    children: [
-      { path: '', component: () => import('pages/Website/About.vue') }
-    ]
-  },
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   component: () => import('layouts/Auth.vue'),
+  //   children: [
+  //     { path: '', component: () => import('pages/Website/About.vue') }
+  //   ]
+  // },
   {
     path: '/how-it-works',
     name: 'How It Works',
